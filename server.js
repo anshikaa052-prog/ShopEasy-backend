@@ -8,7 +8,12 @@ const productRoutes = require('./routes/productRoutes');
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: 'https://shop-easy-frontend-b144e2o8z-anshikaa052-progs-projects.vercel.app',
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
+}));
+app.options('*', cors());
 app.use(express.json());
 app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
