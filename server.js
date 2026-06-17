@@ -24,8 +24,8 @@ app.get('/', (req, res) => {
   res.send('ShopEasy Backend Chal Gaya Bhai!');
 });
 
-const PORT = 5000;
-
+const PORT = process.env.PORT || 5000;
+ 
 mongoose.connect(process.env.MONGO_URI)
 .then(() => {
     console.log("MongoDB Connected Successfully");
