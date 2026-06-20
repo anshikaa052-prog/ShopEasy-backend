@@ -8,7 +8,7 @@ const productRoutes = require('./routes/productRoutes');
 
 const app = express();
 
-// CORS FIX - Replace purana cors config isse
+// CORS FIX - Vercel + Localhost dono allow
 app.use(cors({
   origin: function (origin, callback) {
     // Postman ya server-to-server request ke liye allow
@@ -33,6 +33,9 @@ app.use(cors({
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
 }));
+
+// Preflight OPTIONS request handle karne ke liye - Important
+app.options('*', cors());
 
 app.use(express.json());
 app.use('/api/products', productRoutes);
