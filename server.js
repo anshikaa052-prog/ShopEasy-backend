@@ -8,11 +8,25 @@ const productRoutes = require('./routes/productRoutes');
 
 const app = express();
 
+// CORS FIX - Yahi change karna hai bas
+const allowedOrigins = [
+  'https://shop-easy-frontend-psi.vercel.app',
+  'https://shop-easy-frontend-b144e208z-anshikaa052-progs-projects.vercel.app',
+  'http://localhost:3000'
+];
+
 app.use(cors({
-  origin: 'https://shop-easy-frontend-b144e2o8z-anshikaa052-progs-projects.vercel.app',
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) === -1) {
+      return callback(new Error('CORS policy: Origin not allowed'), false);
+    }
+    return callback(null, true);
+  },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
 }));
+
 app.use(express.json());
 app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
@@ -24,13 +38,13 @@ app.get('/', (req, res) => {
 });
 
 const PORT = process.env.PORT || 5000;
- 
+
 mongoose.connect(process.env.MONGO_URI)
 .then(() => {
-    console.log("MongoDB Connected Successfully");
-    app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+  console.log("MongoDB Connected Successfully");
+  app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
 })
 .catch(err => {
-    console.log("MongoDB Error:", err);
-    process.exit(1);
+  console.log("MongoDB Error:", err);
+  process.exit(1);
 });
