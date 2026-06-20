@@ -34,8 +34,6 @@ app.use(cors({
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
 }));
 
-// Preflight OPTIONS request handle karne ke liye - Important
-app.options('*', cors());
 
 app.use(express.json());
 app.use('/api/products', productRoutes);
