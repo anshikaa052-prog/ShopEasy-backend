@@ -9,7 +9,12 @@ const productRoutes = require('./routes/productRoutes');
 const app = express();
 
 // SIMPLE CORS - Sab allow kar abhi. Baad me lock karenge
-app.use(cors());
+app.use(cors({
+  origin: true,
+  credentials: true, 
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
+}));
 
 app.use(express.json());
 app.use('/api/products', productRoutes);
