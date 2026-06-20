@@ -8,10 +8,11 @@ const productRoutes = require('./routes/productRoutes');
 
 const app = express();
 
-// FINAL CORS FIX - Localhost + Vercel dono chalega
+// FINAL CORS FIX - Localhost + Dono Vercel URL chalega
 const allowedOrigins = [
   'http://localhost:3000',
-  'https://shop-easy-frontend-kdry4x4qa-anshikaa052-orggs-projects.vercel.app'
+  'https://shop-easy-frontend-kdry4x4qa-anshikaa052-orggs-projects.vercel.app',
+  'https://shop-easy-frontend-psi.vercel.app'
 ];
 
 app.use(cors({
@@ -47,5 +48,5 @@ mongoose.connect(process.env.MONGO_URI)
 })
 .catch(err => {
   console.log("MongoDB Error:", err);
-  process.exit(1);
+  process.exit(1);  
 });
