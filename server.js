@@ -8,32 +8,8 @@ const productRoutes = require('./routes/productRoutes');
 
 const app = express();
 
-// CORS FIX - Vercel + Localhost dono allow
-app.use(cors({
-  origin: function (origin, callback) {
-    // Postman ya server-to-server request ke liye allow
-    if (!origin) return callback(null, true);
-    
-    // Saare vercel.app subdomains + localhost allow karo
-    if (origin.endsWith('.vercel.app') || origin === 'http://localhost:3000') {
-      return callback(null, true);
-    }
-    
-    // Agar koi aur specific domain add karna ho
-    const allowedOrigins = [
-      'https://shop-easy-frontend-psi.vercel.app'
-    ];
-    
-    if (allowedOrigins.includes(origin)) {
-      return callback(null, true);
-    }
-    
-    return callback(new Error('CORS policy: Origin not allowed'), false);
-  },
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
-}));
-
+// SIMPLE CORS - Sab allow kar abhi. Baad me lock karenge
+app.use(cors());
 
 app.use(express.json());
 app.use('/api/products', productRoutes);
