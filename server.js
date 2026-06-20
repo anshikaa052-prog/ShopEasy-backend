@@ -8,20 +8,27 @@ const productRoutes = require('./routes/productRoutes');
 
 const app = express();
 
-// CORS FIX - Yahi change karna hai bas
-const allowedOrigins = [
-  'https://shop-easy-frontend-psi.vercel.app',
-  'https://shop-easy-frontend-b144e208z-anshikaa052-progs-projects.vercel.app',
-  'http://localhost:3000'
-];
-
+// CORS FIX - Replace purana cors config isse
 app.use(cors({
   origin: function (origin, callback) {
+    // Postman ya server-to-server request ke liye allow
     if (!origin) return callback(null, true);
-    if (allowedOrigins.indexOf(origin) === -1) {
-      return callback(new Error('CORS policy: Origin not allowed'), false);
+    
+    // Saare vercel.app subdomains + localhost allow karo
+    if (origin.endsWith('.vercel.app') || origin === 'http://localhost:3000') {
+      return callback(null, true);
     }
-    return callback(null, true);
+    
+    // Agar koi aur specific domain add karna ho
+    const allowedOrigins = [
+      'https://shop-easy-frontend-psi.vercel.app'
+    ];
+    
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+    
+    return callback(new Error('CORS policy: Origin not allowed'), false);
   },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
