@@ -32,7 +32,7 @@ app.use(cors({
 }));
 
 // 👇 Ye line 404 preflight fix karegi - Sabse Important
-app.options('*', cors()); 
+// app.options('*', cors()); 
 
 app.use(express.json());
 app.use('/api/products', productRoutes);
