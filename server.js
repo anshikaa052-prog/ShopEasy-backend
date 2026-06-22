@@ -8,7 +8,6 @@ const productRoutes = require('./routes/productRoutes');
 
 const app = express();
 
-// FINAL CORS FIX - Localhost + Dono Vercel URL chalega
 const allowedOrigins = [
   'http://localhost:3000',
   'https://shop-easy-frontend-kdry4x4qa-anshikaa052-orggs-projects.vercel.app',

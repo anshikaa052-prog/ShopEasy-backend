@@ -41,6 +41,8 @@ router.post('/', protect, async (req, res) => {
 
 router.get('/myorders', protect, async (req, res) => {
   try {
+    console.log('ORDER ID:', req.params.id);
+    console.log('USER ID:',req.user._id);
     const orders = await Order.find({ user: req.user._id }).sort({ createdAt: -1 });
     res.json(orders);
   } catch (error) {
